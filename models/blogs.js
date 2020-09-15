@@ -1,3 +1,6 @@
+
+
+/*
 let items=[];
 let key=0;
 module.exports=class Blog{
@@ -44,3 +47,15 @@ module.exports=class Blog{
         }
 
 }
+*/
+
+const mongoose=require('mongoose');
+const blogSchema=mongoose.Schema({
+    title:String,
+   describe:String,
+   name:String,
+   email:String,
+})
+
+module.exports=mongoose.model('blogcollection',blogSchema);
+

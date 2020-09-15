@@ -1,8 +1,12 @@
 const Model=require('./../models/blogs')
 
 exports.get=(req,res)=>{
-    const items=Model.fetchall();
-    res.render('home',{items:items})
+    Model.find().then(
+        blogs=>{
+            res.render('home',{items:blogs})
+        }
+    );
+    
 
 
 }
@@ -10,9 +14,13 @@ exports.get=(req,res)=>{
 
 exports.getsingle=(req,res)=>{
     console.log(req.params.id);
-    const item=Model.fetchsingle(req.params.id);
-    console.log(item)
-    res.render('single',{item:item});
+    Model.findById(req.params.id).then(
+        item=>{
+       // console.log(item)
+        res.render('single',{item:item});
+
+         } );
+    
 
 
 }
@@ -20,9 +28,12 @@ exports.getsingle=(req,res)=>{
 
 exports.update=(req,res)=>{
     //console.log(req.params.id);
-    const item=Model.fetchsingle(req.params.id);
-    //console.log(item)
-    res.render('update',{item:item});
+    Model.findById(req.params.id).then(
+        item=>{
+      //  console.log(item)
+        res.render('update',{item:item});
+         } );
+    
 
 
 }
@@ -34,14 +45,24 @@ exports.updatepost=(req,res)=>{
     const name=req.body.nameupdate;
     const email=req.body.emailupdate;
     //console.log(title)
-    Model.updateAtid(req.body.id,title,describe,name,email);
-    res.redirect('/');
+    const use={id:req.params.id};
+    Model.findOneAndUpdate(use, { name: name,title:title,describe:describe,email:email })
+    .then(
+        (query)=>{
+            console.log(query)
+            res.redirect('/');
+        }
+    )
+   // Model.updateAtid(req.body.id,title,describe,name,email);
+    
 }
 
 
 exports.delete=(req,res)=>{
-   Model.delete(req.body.id);
+   Model.findOneAndRemove(req.body.id).then(
+       
+    ()=>{
    console.log(req.body.id)
    res.redirect('/');
-
+    })
 }

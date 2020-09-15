@@ -11,7 +11,12 @@ exports.post=(req,res)=>{
     const name=req.body.name;
     const email=req.body.email;
     
-    const blog=new Blogs(title,describe,name,email);
+    const blog=new Blogs({
+        title:title,
+        describe:describe,
+        name:name,
+        email:email
+    });
     blog.save();
     res.redirect('/')
 }

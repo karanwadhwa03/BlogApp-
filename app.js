@@ -1,6 +1,11 @@
 const express=require('express');
 const bodyParser=require('body-parser');
 const path=require('path')
+const mongoose=require('mongoose');
+mongoose.connect('mongodb://localhost:27017/BlogDB', {useNewUrlParser: true,useUnifiedTopology: true});
+
+
+
 const app=express();
 const createRoutes=require('./routes/create')
 const homeRoutes=require('./routes/home')

@@ -1,0 +1,34 @@
+<%- include('./includes/header') %>
+
+<a href="/create" class="btn btn-lg btn-success w-100"> GO TO CREATE PAGE</a>
+
+<h1 class="p-2 text-center shadow mt-1 " >BLOGS</h1>
+
+
+<% items.forEach(item=>{ %>
+
+    <div class="my-width border p-3 mt-4 shadow-lg ">
+
+    
+    <h1><%=item.title %> </h1>
+    <h4><%=item.describe %></h4>
+    <h4> BY: <%=item.name %></h4>
+    <h4> EMAIL: <%=item.email %></h4>
+    
+
+    
+    <button class="btn btn-primary"><a href="/blogs/<%=item.id%> " class="text-white">Details</a></button>
+    <button class="btn btn-secondary"><a href="/update/<%=item.id%> " class="text-white">Update</a></button>
+    <form method="POST" action="/delete" class="d-inline">
+        <input type="hidden" value="<%=item.id %>" name="id">
+    <button class="btn btn-danger">Delete</button>
+
+</form>
+</div>
+
+  <%})%>
+
+
+
+
+<%- include('./includes/footer') %>
